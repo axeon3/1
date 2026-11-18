@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+
+  validate-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Validate YAML files
+        run: |
+          python3 -c "
+          import glob, yaml
+          for path in glob.glob('.github/**/*.yml', recursive=True):
+              with open(path) as f:
+                  yaml.safe_load(f)
+              print(f'Valid YAML: {path}')
+          "
