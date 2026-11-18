@@ -1,0 +1,11 @@
+title = "Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist for synthetic test fixtures and docs"
+paths = [
+  '''^\.gitleaks\.toml$''',
+  '''^\.trivyignore$''',
+]
