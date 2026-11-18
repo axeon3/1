@@ -1,0 +1,2 @@
+# Add CVE IDs line-by-line to suppress intentional or unreachable findings:
+# CVE-2021-21345
